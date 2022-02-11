@@ -49,7 +49,6 @@ if __name__ == '__main__':
 
         print(f'Equation={equation}')
 
-    plt.ion()
     plt.plot(percentage_correct_actions[0], color='red', label='e = 0.01')
     plt.plot(percentage_correct_actions[1], color='green', label='e = 0.05')
     plt.plot(percentage_correct_actions[2], color='blue', label='e = 0.5')

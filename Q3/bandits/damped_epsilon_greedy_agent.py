@@ -6,7 +6,7 @@ Created on 14 Jan 2022
 import math
 import numpy as np
 
-from .agent import Agent
+from agent import Agent
 
 class DampedEpsilonGreedyAgent(Agent):
     

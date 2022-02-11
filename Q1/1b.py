@@ -37,7 +37,6 @@ if __name__ == '__main__':
     d = {'charging_station': [], 'reward': []}
     run_bandits(environment, 2000, d)
     df = pd.DataFrame(d)
-    print(df)
 
     #plot
     sns.violinplot(x="charging_station", y="reward", data=df)
