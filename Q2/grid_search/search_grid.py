@@ -41,6 +41,9 @@ class SearchGridCell(Cell):
         self.is_on_path=False
         self.parent_changed=False
 
+        # Used for Dijkstra
+        self.dist = 0
+
 
     def coords(self):
         return self._coords
