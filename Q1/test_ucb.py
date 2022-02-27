@@ -7,7 +7,7 @@ from bandits.bandit import Bandit
 from bandits.bandit import BanditEnvironment
 from bandits.upper_confidence_bound_agent import UpperConfidenceBoundAgent
 from bandits.performance_measures import compute_percentage_of_optimal_actions_selected
-from bandits.performance_measures import compute_regret
+from bandits.performance_measures import cumulative_regret
 
 if __name__ == '__main__':
     # Create bandit
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         percentage_correct_actions.append(compute_percentage_of_optimal_actions_selected(environment, action_history))
 
         # Plot the regret curves
-        regret.append(compute_regret(environment, reward_history))
+        regret.append(cumulative_regret(environment, reward_history))
 
     plt.plot(percentage_correct_actions[0], color='red', label='c = 0.1')
     plt.plot(percentage_correct_actions[1], color='green', label='c = 0.2')

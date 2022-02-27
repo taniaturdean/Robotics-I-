@@ -48,8 +48,9 @@ class DijkstraPlanner(PlannerBase):
             cell.set_parent(parent_cell)
             cell.dist = parent_cell.dist + dist
             arr = []
-            current = None
-            while current is None or current[1] != cell:
+
+            # Readd everything in the queue with the new dist to the changed cell
+            while self.priorityQueue.qsize() != 0:
                 current = self.priorityQueue.get()
                 arr.append(current)
             for tup in arr:
