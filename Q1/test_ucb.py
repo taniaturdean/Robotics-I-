@@ -21,8 +21,6 @@ if __name__ == '__main__':
 
     number_of_steps = 5000
 
-    # Q5b:
-    # Change values to see what happens
     cs = [0.1, 0.2, 0.5, 1, 2, 4]
     percentage_correct_actions = []
     regret = []
