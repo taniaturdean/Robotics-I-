@@ -30,7 +30,7 @@ class AirportBatteryChargingEnvironment(gym.Env):
     classdocs
     """
 
-    def __init__(self, airport_map, planner_type = PlannerType.DEPTH_FIRST):
+    def __init__(self, airport_map, planner_type = PlannerType.A_STAR):
         """
         Constructor
         """
@@ -59,6 +59,9 @@ class AirportBatteryChargingEnvironment(gym.Env):
             self._charging_station_bandits[charging_stations[b].coords()] = bandit
 
         self._current_coords=None
+
+    def getBandit(self, num):
+        return self._charging_station_bandits[num]
 
     def reset(self):
         self._current_coords=None
