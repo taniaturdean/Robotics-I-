@@ -10,6 +10,7 @@ Created on 26 Jan 2022
 
 from airport.scenarios import *
 from airport.airport_environment import AirportBatteryChargingEnvironment
+from airport.airport_environment import PlannerType
 from airport.airport_map import MapCellType
 from airport.actions import ActionType
 from airport.charging_policy import ChargingPolicy
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     charging_policy = ChargingPolicy(airport_map, set_random=False)
     
     # Create the environment
-    airport_environment = AirportBatteryChargingEnvironment(airport_map)
+    airport_environment = AirportBatteryChargingEnvironment(airport_map, planner_type=PlannerType.A_STAR)
 
     # Q2j, k:
     # Implement your algorithm here to use the airport_environment

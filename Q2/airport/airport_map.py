@@ -179,7 +179,7 @@ class AirportMap(CellGrid):
         if self.cell(current_coords[0], current_coords[1]).cell_type() == MapCellType.CUSTOMS_AREA:
             L = L * 100
 
-        return L * L
+        return L
 
     def populate_search_grid(self, search_grid):
         grid = [[SearchGridCell((x, y), self.is_obstructed(x, y)) for y in range(self._height)] \

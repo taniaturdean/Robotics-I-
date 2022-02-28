@@ -30,7 +30,7 @@ class AirportBatteryChargingEnvironment(gym.Env):
     classdocs
     """
 
-    def __init__(self, airport_map, planner_type = PlannerType.A_STAR):
+    def __init__(self, airport_map, planner_type = PlannerType.DEPTH_FIRST):
         """
         Constructor
         """
