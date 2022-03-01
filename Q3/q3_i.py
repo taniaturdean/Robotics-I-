@@ -9,6 +9,7 @@ Created on 3 Feb 2022
 from airport.scenarios import *
 from airport.airport_driving_environment import AirportDrivingEnvironment
 from generalized_policy_iteration.policy_iterator import PolicyIterator
+from generalized_policy_iteration.value_iterator import ValueIterator
 from generalized_policy_iteration.value_function_drawer import ValueFunctionDrawer
 from airport.driving_policy_drawer import DrivingPolicyDrawer
 
@@ -22,10 +23,10 @@ if __name__ == '__main__':
     airport_environment = AirportDrivingEnvironment(airport_map)
     
     # Configure the process model
-    airport_environment.set_nominal_direction_probability(1.0)
+    airport_environment.set_nominal_direction_probability(0.8)
     
     # Create the policy iterator
-    policy_solver = PolicyIterator(airport_environment)
+    policy_solver = ValueIterator(airport_environment)
     
     # Set up initial state
     policy_solver.initialize()
@@ -39,6 +40,8 @@ if __name__ == '__main__':
         
     # Compute the solution
     v, pi = policy_solver.solve_policy()
+
+    print(policy_solver.iterations)
     
     # Save screen shot; this is in the current directory
     policy_drawer.save_screenshot("policy_iteration_results.jpg")
