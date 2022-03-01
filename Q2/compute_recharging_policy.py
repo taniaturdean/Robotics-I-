@@ -32,7 +32,7 @@ if __name__ == '__main__':
     for x in range(60):
         for y in range(40):
             type = airport_map.cell(x, y).cell_type()
-            if type is MapCellType.SECRET_DOOR or type is MapCellType.CUSTOMS_AREA or type is MapCellType.CHARGING_STATION or type is MapCellType.OPEN_SPACE:
+            if type is MapCellType.SECRET_DOOR or type is MapCellType.CUSTOMS_AREA or type is MapCellType.CHARGING_STATION or type is MapCellType.OPEN_SPACE or type is MapCellType.RUBBISH_BIN:
                 best_action = 0
                 best_equation = -float('inf')
                 for i in range(4):

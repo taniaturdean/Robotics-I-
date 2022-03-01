@@ -208,8 +208,12 @@ class AirportMap(CellGrid):
         dX = current_coords[0] - last_coords[0]
         dY = current_coords[1] - last_coords[1]
         L = math.sqrt(dX * dX + dY * dY)
+
+        if self.cell(current_coords[0], current_coords[1]).cell_type() == MapCellType.SECRET_DOOR:
+            L = L * 5
+        if self.cell(current_coords[0], current_coords[1]).cell_type() == MapCellType.CUSTOMS_AREA:
+            L = L * 100
             
-        return L
         return L
         
     def populate_search_grid(self, search_grid):

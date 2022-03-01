@@ -7,6 +7,7 @@ Created on 29 Jan 2022
 # This class implements the policy iterator algorithm.
 
 from .dynamic_programming_base import DynamicProgrammingBase
+from airport.driving_actions import DrivingActionType
 
 class PolicyIterator(DynamicProgrammingBase):
 
@@ -21,6 +22,10 @@ class PolicyIterator(DynamicProgrammingBase):
         # The maximum number of times the policy evaluation iteration
         # is carried out.
         self._max_policy_iteration_steps = 1000
+
+        self.iterations = 0
+        self.evaluation_steps = []
+        self.total_evaluation_steps = 0
         
 
     def solve_policy(self):
@@ -37,8 +42,7 @@ class PolicyIterator(DynamicProgrammingBase):
         policy_stable = False
         
         # Loop until either the policy converges or we ran out of steps        
-        while (policy_stable is False) and \
-            (policy_iteration_step < self._max_policy_iteration_steps):
+        while (policy_stable is False) and (policy_iteration_step < self._max_policy_iteration_steps):
             
             # Evaluate the policy
             self._evaluate_policy()
@@ -64,6 +68,7 @@ class PolicyIterator(DynamicProgrammingBase):
             self._value_drawer.update()
 
         # Return the value function and policy of the solution
+        self.iterations = policy_iteration_step
         return self._v, self._pi
 
         
@@ -102,8 +107,7 @@ class PolicyIterator(DynamicProgrammingBase):
                     old_v = self._v.value(x, y)
 
                     # Compute p(s',r|s,a)
-                    s_prime, r, p = environment.next_state_and_reward_distribution(cell, \
-                                                                                     self._pi.action(x, y))
+                    s_prime, r, p = environment.next_state_and_reward_distribution(cell, self._pi.action(x, y))
                     
                     # Sum over the rewards
                     new_v = 0
@@ -125,13 +129,46 @@ class PolicyIterator(DynamicProgrammingBase):
             # Terminate the loop if either the change was very small, or we exceeded
             # the maximum number of iterations.
             if (delta < self._theta) or (iteration >= self._max_policy_evaluation_steps_per_iteration):
+                    self.evaluation_steps.append(iteration)
+                    self.total_evaluation_steps += iteration
                     break
 
     def _improve_policy(self):
 
         # Q3d: Finish implementing policy iteration
+        environment = self._environment
+        map = environment.map()
 
-        return True
+        policy_stable = True
+        for x in range(map.width()):
+            for y in range(map.height()):
+                if map.cell(x, y).is_obstruction() or map.cell(x, y).is_terminal():
+                    continue
+
+                cell = (x, y)
+
+                old_action = self._pi.action(x, y)
+                best_v = -float('inf')
+                best_action = 0
+
+                for action in range(8):
+                    s_prime, r, p = environment.next_state_and_reward_distribution(cell, DrivingActionType(action))
+
+                    new_v = 0
+                    for t in range(len(p)):
+                        sc = s_prime[t].coords()
+                        new_v = new_v + p[t] * (r[t] + self._gamma * self._v.value(sc[0], sc[1]))
+
+                    if new_v > best_v:
+                        best_v = new_v
+                        best_action = action
+
+                if old_action != DrivingActionType(best_action):
+                    policy_stable = False
+
+                self._pi.set_action(x, y, best_action)
+
+        return policy_stable
                 
                 
                 

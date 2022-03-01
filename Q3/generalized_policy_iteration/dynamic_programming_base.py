@@ -26,7 +26,7 @@ class DynamicProgrammingBase:
         
         # Working scratch variables for the current value function
         # and policy
-        self._v= None
+        self._v = None
         self._pi = None
         
         # Shows debug output interactively

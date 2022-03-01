@@ -52,7 +52,7 @@ class AirportDrivingEnvironment(Env):
         self._p = nominal_direction_probability
         self._q = 0.5 * (1 - self._p)
 
-    # Return the probability the robot will move i the correcc direction        
+    # Return the probability the robot will move i the correct direction
     def nominal_direction_probability(self):
         return self._p
     

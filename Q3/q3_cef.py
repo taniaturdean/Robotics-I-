@@ -22,7 +22,7 @@ if __name__ == '__main__':
     airport_environment = AirportDrivingEnvironment(airport_map)
     
     # Configure the process model
-    airport_environment.set_nominal_direction_probability(1.0)
+    airport_environment.set_nominal_direction_probability(0.3)
     
     # Create the policy iterator
     policy_solver = PolicyIterator(airport_environment)
@@ -39,6 +39,10 @@ if __name__ == '__main__':
         
     # Compute the solution
     v, pi = policy_solver.solve_policy()
+
+    print(policy_solver.total_evaluation_steps)
+    print(policy_solver.iterations)
+
     
     # Save screen shot; this is in the current directory
     policy_drawer.save_screenshot("policy_iteration_results.jpg")
